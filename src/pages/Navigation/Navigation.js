@@ -1,15 +1,23 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-
+import { Outlet, Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../../assets/nav-logo.svg";
+import "./navigation.styles.scss";
 const Navigation = () => {
 	return (
-		<div>
-			<div>
-				<h1>i am navigation</h1>
+		<>
+			<div className="navigation">
+				<Link to="/" className="logo-container">
+					<Logo className="logo" />
+				</Link>
+				<div className="nav-links-container">
+					<Link to="/shop" className="nav-link">
+						Shop
+					</Link>
+				</div>
 			</div>
 			{/* display Outlet under Navigation at all times, there will be nested routes */}
 			<Outlet />
-		</div>
+		</>
 	);
 };
 
