@@ -3,6 +3,7 @@ import {
 	createAuthUserWithEmailAndPassword,
 	createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase";
+import FormInput from "../FormInput/FormInput";
 const SignUpForm = () => {
 	const [inputValues, setInputValues] = useState({
 		displayName: "",
@@ -67,40 +68,36 @@ const SignUpForm = () => {
 		<div>
 			<h1>Sign up with your email and password</h1>
 			<form>
-				<label htmlFor="displayName">Display name</label>
-				<input
+				<FormInput
+					labelText="Display Name"
+					changeHandler={handleInputChange}
 					name="displayName"
-					onChange={handleInputChange}
-					value={inputValues.displayName}
+					inputValue={inputValues.displayName}
 					type="text"
-					required
 				/>
 
-				<label htmlFor="email">Email</label>
-				<input
-					onChange={handleInputChange}
+				<FormInput
+					labelText="Email"
+					changeHandler={handleInputChange}
 					name="email"
-					value={inputValues.email}
+					inputValue={inputValues.email}
 					type="email"
-					required
 				/>
 
-				<label htmlFor="password">Password</label>
-				<input
+				<FormInput
+					labelText="Password"
+					changeHandler={handleInputChange}
 					name="password"
-					value={inputValues.password}
+					inputValue={inputValues.password}
 					type="password"
-					required
-					onChange={handleInputChange}
 				/>
 
-				<label htmlFor="confirmPassword">Confirm Password</label>
-				<input
+				<FormInput
+					labelText="Confirm Password"
+					changeHandler={handleInputChange}
 					name="confirmPassword"
-					value={inputValues.confirmPassword}
+					inputValue={inputValues.confirmPassword}
 					type="password"
-					required
-					onChange={handleInputChange}
 				/>
 
 				<button onClick={handleSubmit} type="submit">
