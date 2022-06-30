@@ -18,15 +18,20 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 // for google
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
 	prompt: "select_account",
 });
 
 export const auth = getAuth();
+//google popup
 export const signInWithGooglePopup = () => {
-	return signInWithPopup(auth, provider);
+	return signInWithPopup(auth, googleProvider);
+};
+//google redirect
+export const signInWithGoogleRedirect = () => {
+	return signInWithRedirect(auth, googleProvider);
 };
 
 //create db(points to our database)
