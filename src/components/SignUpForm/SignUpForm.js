@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-
+import {
+	createAuthUserWithEmailAndPassword,
+	createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase";
 const SignUpForm = () => {
 	const [inputValues, setInputValues] = useState({
-		name: "",
+		displayName: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
@@ -13,18 +16,46 @@ const SignUpForm = () => {
 		const value = e.target.value;
 		setInputValues({ ...inputValues, [name]: value });
 	};
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		//fill all fields
+		if (
+			!inputValues.displayName ||
+			!inputValues.email ||
+			!inputValues.password
+		) {
+			console.log("Please fill all fields");
+			return;
+		}
+		//if password doesnt match return
+		if (inputValues.password !== inputValues.confirmPassword) {
+			console.log("passwords doesnt match");
+			return;
+		}
+		try {
+			//get back response of promise when trying to create user with email and password
+			const res = await createAuthUserWithEmailAndPassword(
+				inputValues.email,
+				inputValues.password
+			);
+			const user = res.user;
+			//add userName before creating doc
+			user.displayName = inputValues.displayName;
+			//create user doc in db from response
+			await createUserDocumentFromAuth(user);
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 	return (
 		<div>
 			<h1>Sign up with your email and password</h1>
 			<form>
-				<label htmlFor="name">Display name</label>
+				<label htmlFor="displayName">Display name</label>
 				<input
-					name="name"
+					name="displayName"
 					onChange={handleInputChange}
-					value={inputValues.name}
+					value={inputValues.displayName}
 					type="text"
 					required
 				/>
