@@ -10,7 +10,15 @@ const SignUpForm = () => {
 		password: "",
 		confirmPassword: "",
 	});
-
+	//clear form
+	const clearFormFields = () => {
+		setInputValues({
+			displayName: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+		});
+	};
 	const handleInputChange = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
@@ -43,8 +51,16 @@ const SignUpForm = () => {
 			user.displayName = inputValues.displayName;
 			//create user doc in db from response
 			await createUserDocumentFromAuth(user);
+			//clear form
+			clearFormFields();
 		} catch (error) {
-			console.log(error.message);
+			if (error.code === "auth/email-already-in-use") {
+				alert("Cannot create user, email already in use");
+			} else if (error.code === "auth/weak-password") {
+				alert("Password should be at least 6 characters");
+			} else {
+				console.log(error.message);
+			}
 		}
 	};
 	return (
