@@ -1,8 +1,10 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/nav-logo.svg";
+import { useUserContext } from "../../contexts/userContext";
 import "./navigation.styles.scss";
 const Navigation = () => {
+	const { currentUser } = useUserContext();
 	return (
 		<>
 			<div className="navigation">
@@ -13,9 +15,15 @@ const Navigation = () => {
 					<Link to="/shop" className="nav-link">
 						Shop
 					</Link>
-					<Link to="/auth" className="nav-link">
-						SignIn
-					</Link>
+					{currentUser ? (
+						<Link to="/" className="nav-link">
+							Sign Out
+						</Link>
+					) : (
+						<Link to="/auth" className="nav-link">
+							Sign In
+						</Link>
+					)}
 				</div>
 			</div>
 			{/* display Outlet under Navigation at all times, there will be nested routes */}
