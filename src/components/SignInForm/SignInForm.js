@@ -13,6 +13,14 @@ const SignInForm = () => {
 		password: "",
 	});
 
+	//clear form
+	const clearFormFields = () => {
+		setInputValues({
+			email: "",
+			password: "",
+		});
+	};
+
 	const handleInputChange = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
@@ -33,12 +41,16 @@ const SignInForm = () => {
 				inputValues.password
 			);
 			console.log(res);
+			clearFormFields();
 		} catch (error) {
 			if (error.code === "auth/wrong-password") {
 				alert("Wrong password");
 			}
 			if (error.code === "auth/too-many-requests") {
 				alert("too many requests, try again a bit later");
+			}
+			if (error.code === "auth/user-not-found") {
+				alert("user not found");
 			}
 			console.log(error.message);
 		}

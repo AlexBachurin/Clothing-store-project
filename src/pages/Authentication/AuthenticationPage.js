@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./authentication.styles.scss";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SignInForm from "../../components/SignInForm/SignInForm";
 const AuthenticationPage = () => {
@@ -18,10 +18,9 @@ const AuthenticationPage = () => {
 	// 	createUserAfterRedirect();
 	// }, []);
 	return (
-		<div>
-			<h1>sign in page</h1>
-			<SignUpForm />
+		<div className="auth-container">
 			<SignInForm />
+			<SignUpForm />
 		</div>
 	);
 };
