@@ -1,14 +1,8 @@
-import React, { useEffect } from "react";
-import { getRedirectResult } from "firebase/auth";
-// import {
-// 	auth,
-// 	createUserDocumentFromAuth,
-// 	signInWithGooglePopup,
-// 	signInWithGoogleRedirect,
-// } from "../../utils/firebase/firebase";
+import React from "react";
+
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SignInForm from "../../components/SignInForm/SignInForm";
-const SignInPage = () => {
+const AuthenticationPage = () => {
 	// const logUserWithGoogleRedirect = async () => {
 	// 	await signInWithGoogleRedirect();
 	// };
@@ -32,4 +26,4 @@ const SignInPage = () => {
 	);
 };
 
-export default SignInPage;
+export default AuthenticationPage;

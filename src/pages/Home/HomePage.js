@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryMenuContainer from "../../components/CategoryMenuContainer/CategoryMenuContainer";
-const Home = () => {
+const HomePage = () => {
 	return <CategoryMenuContainer />;
 };
 
-export default Home;
+export default HomePage;
