@@ -36,11 +36,13 @@ const SignUpForm = () => {
 			!inputValues.password
 		) {
 			console.log("Please fill all fields");
+			alert("Please fill all fields");
 			return;
 		}
 		//if password doesnt match return
 		if (inputValues.password !== inputValues.confirmPassword) {
 			console.log("passwords doesnt match");
+			alert("Password do not match");
 			return;
 		}
 		try {
