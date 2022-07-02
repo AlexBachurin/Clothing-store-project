@@ -1,4 +1,5 @@
 import React from "react";
+import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 import { useCartContext } from "../../contexts/cartContext";
 import "./checkout.styles.scss";
 
@@ -9,15 +10,7 @@ const CheckoutPage = () => {
 			<h1>Checkout page</h1>
 			<div>
 				{cartItems.map((item) => {
-					const { id, name, imageUrl, amount, price } = item;
-					return (
-						<div key={id}>
-							<h2>{name}</h2>
-							<span>{amount}</span>
-							<button>dec</button>
-							<button>inc</button>
-						</div>
-					);
+					return <CheckoutItem key={item.id} {...item} />;
 				})}
 			</div>
 		</div>

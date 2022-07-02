@@ -40,6 +40,32 @@ export const CartProvider = ({ children }) => {
 		});
 		setCartItems([...newArr]);
 	};
+	//increment/decrement amount in cart
+	const toggleAmount = (id, type) => {
+		//find item to operate by id
+		const findItem = cartItems.find((cartItem) => cartItem.id === id);
+		//if amount is 1, then delete item on decrement
+		if (findItem.amount === 1 && type === "dec") {
+			deleteItemFromCart(id);
+		} else {
+			const newArr = cartItems.map((cartItem) => {
+				//find item to operate by id
+				if (cartItem.id === id) {
+					//check type
+					if (type === "dec") {
+						return { ...cartItem, amount: cartItem.amount - 1 };
+					}
+					// or just increase
+					if (type === "inc") {
+						return { ...cartItem, amount: cartItem.amount + 1 };
+					}
+				}
+				return cartItem;
+			});
+			//return new filtered array
+			setCartItems([...newArr]);
+		}
+	};
 	return (
 		<CartContext.Provider
 			value={{
@@ -48,6 +74,7 @@ export const CartProvider = ({ children }) => {
 				addToCart,
 				cartItems,
 				deleteItemFromCart,
+				toggleAmount,
 			}}
 		>
 			{children}
