@@ -5,18 +5,20 @@ import Button from "../Button/Button";
 import CartItem from "../CartItem/CartItem";
 import "./cartDropdown.styles.scss";
 const CartDropdown = () => {
-	const { cartItems } = useCartContext();
+	const { cartItems, setIsCartOpen } = useCartContext();
 
 	let navigate = useNavigate();
 
 	const goToCheckout = () => {
+		//close cart
+		setIsCartOpen(false);
 		navigate("/checkout");
 	};
 	return (
 		<div className="cart-dropdown-container">
 			<div className="cart-items">
 				{cartItems.map((cartItem) => {
-					return <CartItem {...cartItem} />;
+					return <CartItem key={cartItem.id} {...cartItem} />;
 				})}
 				<Button onClick={goToCheckout} buttonType="inverted" type="button">
 					checkout

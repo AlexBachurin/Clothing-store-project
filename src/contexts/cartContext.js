@@ -75,6 +75,7 @@ export const CartProvider = ({ children }) => {
 				cartItems,
 				deleteItemFromCart,
 				toggleAmount,
+				setIsCartOpen,
 			}}
 		>
 			{children}
