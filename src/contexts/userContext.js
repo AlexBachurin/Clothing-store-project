@@ -1,9 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import {
+	createUserDocumentFromAuth,
+	onAuthStateChangedListener,
+} from "../utils/firebase/firebase";
 
 const UserContext = React.createContext();
 
 const UserProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null);
+
+	useEffect(() => {
+		//listen to auth change
+		const unsubscribe = onAuthStateChangedListener((user) => {
+			if (user) {
+				createUserDocumentFromAuth(user);
+			}
+			setCurrentUser(user);
+		});
+		//unsubscribe from listener every time component unmounts
+		return unsubscribe;
+	}, []);
 
 	return (
 		<UserContext.Provider

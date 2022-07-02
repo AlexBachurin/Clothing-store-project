@@ -6,6 +6,8 @@ import {
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	signOut,
+	onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 const firebaseConfig = {
@@ -50,6 +52,18 @@ export const loginWithEmailAndPassword = async (email, password) => {
 	if (!email || !password) return;
 	//else return promise
 	return await signInWithEmailAndPassword(auth, email, password);
+};
+
+//LOGOUT
+export const signOutUser = async () => {
+	return await signOut(auth);
+};
+
+//AUTH LISTENER
+//take callback and then auth state changes call this callback
+export const onAuthStateChangedListener = (callback) => {
+	//this is permanent listener
+	return onAuthStateChanged(auth, callback);
 };
 
 //create db(points to our database)
