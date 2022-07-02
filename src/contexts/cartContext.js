@@ -31,6 +31,15 @@ export const CartProvider = ({ children }) => {
 		//also open cart by default then trying to add item to cart
 		setIsCartOpen(true);
 	};
+	//delete item from cart
+	const deleteItemFromCart = (id) => {
+		console.log(id);
+		//find item to delete in cart by id and remove it with help of filter method
+		const newArr = cartItems.filter((item) => {
+			return item.id !== id;
+		});
+		setCartItems([...newArr]);
+	};
 	return (
 		<CartContext.Provider
 			value={{
@@ -38,6 +47,7 @@ export const CartProvider = ({ children }) => {
 				openCart,
 				addToCart,
 				cartItems,
+				deleteItemFromCart,
 			}}
 		>
 			{children}
