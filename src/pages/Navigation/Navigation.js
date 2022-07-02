@@ -3,14 +3,21 @@ import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/nav-logo.svg";
 import CartDropdown from "../../components/CartDropdown/CartDropdown";
 import CartIcon from "../../components/CartIcon/CartIcon";
+import { useProductsContext } from "../../contexts/productsContext";
 import { useUserContext } from "../../contexts/userContext";
 import { signOutUser } from "../../utils/firebase/firebase";
 import "./navigation.styles.scss";
 const Navigation = () => {
 	const { currentUser } = useUserContext();
+	const { isCartOpen, openCart } = useProductsContext();
 
 	const logoutUser = async () => {
 		await signOutUser();
+	};
+
+	//open cart
+	const handleOpenCart = () => {
+		openCart();
 	};
 	return (
 		<>
@@ -32,8 +39,8 @@ const Navigation = () => {
 						</Link>
 					)}
 
-					<CartIcon />
-					<CartDropdown />
+					<CartIcon handleOpenCart={handleOpenCart} />
+					{isCartOpen ? <CartDropdown /> : null}
 				</div>
 			</div>
 			{/* display Outlet under Navigation at all times, there will be nested routes */}

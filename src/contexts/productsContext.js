@@ -5,7 +5,11 @@ const ProductsContext = React.createContext();
 
 export const ProductsProvider = ({ children }) => {
 	const [products, setProducts] = useState(PRODUCTS_DATA);
+	const [isCartOpen, setIsCartOpen] = useState(false);
 
+	const openCart = () => {
+		setIsCartOpen(!isCartOpen);
+	};
 	useEffect(() => {
 		console.log(products);
 	});
@@ -14,6 +18,8 @@ export const ProductsProvider = ({ children }) => {
 			value={{
 				products,
 				setProducts,
+				isCartOpen,
+				openCart,
 			}}
 		>
 			{children}
