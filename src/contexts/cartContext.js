@@ -28,6 +28,8 @@ export const CartProvider = ({ children }) => {
 		else {
 			setCartItems([...cartItems, item]);
 		}
+		//also open cart by default then trying to add item to cart
+		setIsCartOpen(true);
 	};
 	return (
 		<CartContext.Provider
@@ -35,6 +37,7 @@ export const CartProvider = ({ children }) => {
 				isCartOpen,
 				openCart,
 				addToCart,
+				cartItems,
 			}}
 		>
 			{children}
