@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
 	loginWithEmailAndPassword,
 	signInWithGooglePopup,
-	createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase";
 import Button from "../Button/Button";
 import FormInput from "../FormInput/FormInput";
@@ -37,10 +36,7 @@ const SignInForm = () => {
 		}
 		//try to sign in user
 		try {
-			const res = await loginWithEmailAndPassword(
-				inputValues.email,
-				inputValues.password
-			);
+			await loginWithEmailAndPassword(inputValues.email, inputValues.password);
 
 			clearFormFields();
 		} catch (error) {
