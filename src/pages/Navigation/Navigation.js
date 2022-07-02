@@ -3,13 +3,13 @@ import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/nav-logo.svg";
 import CartDropdown from "../../components/CartDropdown/CartDropdown";
 import CartIcon from "../../components/CartIcon/CartIcon";
-import { useProductsContext } from "../../contexts/productsContext";
+import { useCartContext } from "../../contexts/cartContext";
 import { useUserContext } from "../../contexts/userContext";
 import { signOutUser } from "../../utils/firebase/firebase";
 import "./navigation.styles.scss";
 const Navigation = () => {
 	const { currentUser } = useUserContext();
-	const { isCartOpen, openCart } = useProductsContext();
+	const { isCartOpen, openCart } = useCartContext();
 
 	const logoutUser = async () => {
 		await signOutUser();
