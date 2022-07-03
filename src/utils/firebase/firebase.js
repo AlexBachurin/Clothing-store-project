@@ -16,6 +16,8 @@ import {
 	setDoc,
 	collection,
 	writeBatch,
+	query,
+	getDocs,
 } from "firebase/firestore";
 const firebaseConfig = {
 	apiKey: "AIzaSyBIgVjNHPDpzwnDP_PoCq77z0-j2snE9A4",
@@ -122,4 +124,20 @@ export const addCollectionAndDocuments = async (
 	//fire it off
 	await batch.commit();
 	console.log("done batching to db");
+};
+
+//fetch categories data from db
+export const getCategoriesAndDocuments = async () => {
+	const collectionRef = collection(db, "categories");
+	//get query to create snapshow
+	const q = query(collectionRef);
+	const querySnapshot = await getDocs(q);
+	//transform to needed data
+	const categoryMap = querySnapshot.docs.reduce((acc, curDocSnapshot) => {
+		const { title, items } = curDocSnapshot.data();
+		acc[title.toLowerCase()] = items;
+		return acc;
+	}, {});
+
+	return categoryMap;
 };
