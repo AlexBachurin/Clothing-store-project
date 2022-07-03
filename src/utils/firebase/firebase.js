@@ -9,7 +9,14 @@ import {
 	signOut,
 	onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+	getFirestore,
+	doc,
+	getDoc,
+	setDoc,
+	collection,
+	writeBatch,
+} from "firebase/firestore";
 const firebaseConfig = {
 	apiKey: "AIzaSyBIgVjNHPDpzwnDP_PoCq77z0-j2snE9A4",
 	authDomain: "clothing-store2022-442f6.firebaseapp.com",
@@ -94,4 +101,25 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 	}
 	//if user data exists
 	return userDocRef;
+};
+
+//method to upload categories from internal data to firebase
+export const addCollectionAndDocuments = async (
+	collectionKey,
+	objectsToAdd
+) => {
+	//create new collection in our db, with passed name(collectionKey);
+	const collectionRef = collection(db, collectionKey);
+	//write all objects to collection in 1 successfull transaction
+	const batch = writeBatch(db);
+
+	objectsToAdd.forEach((obj) => {
+		//create new document in db
+		const docRef = doc(collectionRef, obj.title.toLowerCase());
+		//set new document with value of passed object
+		batch.set(docRef, obj);
+	});
+	//fire it off
+	await batch.commit();
+	console.log("done batching to db");
 };
