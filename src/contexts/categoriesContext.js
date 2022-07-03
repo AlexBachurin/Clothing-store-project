@@ -2,33 +2,34 @@ import React, { useState, useEffect, useContext } from "react";
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase.js";
 import SHOP_DATA from "../utils/shop-data.js";
 
-const ProductsContext = React.createContext();
+const CategoriesContext = React.createContext();
 
-export const ProductsProvider = ({ children }) => {
-	const [products, setProducts] = useState([]);
+export const CategoriesProvider = ({ children }) => {
+	const [categories, setCategories] = useState({});
 
 	useEffect(() => {
 		//get categories from db, since it async wrap it in internal function
 		const getCategoriesMap = async () => {
 			const categoryMap = await getCategoriesAndDocuments();
 			console.log(categoryMap);
+			setCategories(categoryMap);
 		};
 		//then call it
 		getCategoriesMap();
 	}, []);
 	return (
-		<ProductsContext.Provider
+		<CategoriesContext.Provider
 			value={{
-				products,
-				setProducts,
+				categories,
+				setCategories,
 			}}
 		>
 			{children}
-		</ProductsContext.Provider>
+		</CategoriesContext.Provider>
 	);
 };
 
 //global hook
-export const useProductsContext = () => {
-	return useContext(ProductsContext);
+export const useCategoriesContext = () => {
+	return useContext(CategoriesContext);
 };
