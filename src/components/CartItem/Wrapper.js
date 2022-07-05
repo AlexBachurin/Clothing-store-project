@@ -5,7 +5,7 @@ const Wrapper = styled.div`
 	display: flex;
 	height: 110px;
 	margin-bottom: 15px;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 
 	img {
@@ -32,6 +32,7 @@ const Wrapper = styled.div`
 	.delete-btn {
 		display: block;
 		cursor: pointer;
+		color: #cc0000;
 	}
 `;
 

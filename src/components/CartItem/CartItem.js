@@ -15,9 +15,9 @@ const CartItem = ({ id, name, price, imageUrl, amount }) => {
 				<span className="price">{`${amount}x${price}$`}</span>
 			</div>
 			<div>
-				<button onClick={deleteFromCart} className="delete-btn" type="button">
-					del
-				</button>
+				<span onClick={deleteFromCart} className="delete-btn" type="button">
+					&#10005;
+				</span>
 			</div>
 		</Wrapper>
 	);
