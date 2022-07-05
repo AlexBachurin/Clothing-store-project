@@ -1,6 +1,6 @@
 import React from "react";
 import { useCartContext } from "../../contexts/cartContext";
-import "./cartItem.styles.scss";
+import Wrapper from "./Wrapper";
 
 const CartItem = ({ id, name, price, imageUrl, amount }) => {
 	const { deleteItemFromCart } = useCartContext();
@@ -8,7 +8,7 @@ const CartItem = ({ id, name, price, imageUrl, amount }) => {
 		deleteItemFromCart(id);
 	};
 	return (
-		<div className="cart-item-container">
+		<Wrapper>
 			<img src={imageUrl} alt={name} />
 			<div className="item-details">
 				<span className="name">{name}</span>
@@ -19,7 +19,7 @@ const CartItem = ({ id, name, price, imageUrl, amount }) => {
 					del
 				</button>
 			</div>
-		</div>
+		</Wrapper>
 	);
 };
 

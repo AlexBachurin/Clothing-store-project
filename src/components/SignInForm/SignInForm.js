@@ -6,7 +6,7 @@ import {
 } from "../../utils/firebase/firebase";
 import Button from "../Button/Button";
 import FormInput from "../FormInput/FormInput";
-import "./signInForm.styles.scss";
+import Wrapper from "./Wrapper";
 const SignInForm = () => {
 	const [inputValues, setInputValues] = useState({
 		email: "",
@@ -57,7 +57,7 @@ const SignInForm = () => {
 		await signInWithGooglePopup();
 	};
 	return (
-		<div className="sign-in-container">
+		<Wrapper>
 			<h2>Already have an account?</h2>
 			<span>Sign in with your email and password</span>
 			<form>
@@ -90,7 +90,7 @@ const SignInForm = () => {
 					</Button>
 				</div>
 			</form>
-		</div>
+		</Wrapper>
 	);
 };
 

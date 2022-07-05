@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
-import "./categoryPreview.styles.scss";
+import Wrapper from "./Wrapper";
 const CategoryPreview = ({ title, products }) => {
 	return (
-		<div className="category-preview-container">
+		<Wrapper>
 			<h2>
 				<Link to={`${title}`}>
 					<span className="title">{title.toUpperCase()}</span>
@@ -18,7 +18,7 @@ const CategoryPreview = ({ title, products }) => {
 					})
 					.slice(0, 4)}
 			</div>
-		</div>
+		</Wrapper>
 	);
 };
 

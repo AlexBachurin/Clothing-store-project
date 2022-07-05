@@ -1,17 +1,14 @@
-import "./categoryItem.styles.scss";
+import Wrapper from "./Wrapper";
 
-const CategoryItem = ({ id, title, imageUrl }) => {
+const CategoryItem = ({ title, imageUrl }) => {
 	return (
-		<div key={id} className="category-container">
-			<div
-				className="background-image"
-				style={{ backgroundImage: `url(${imageUrl})` }}
-			/>
+		<Wrapper imageUrl={imageUrl}>
+			<div className="background-image" />
 			<div className="category-body-container">
 				<h2>{title}</h2>
 				<p>Shop Now</p>
 			</div>
-		</div>
+		</Wrapper>
 	);
 };
 

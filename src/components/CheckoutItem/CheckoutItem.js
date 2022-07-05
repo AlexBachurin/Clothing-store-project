@@ -1,6 +1,6 @@
 import React from "react";
 import { useCartContext } from "../../contexts/cartContext";
-import "./checkoutItem.styles.scss";
+import Wrapper from "./Wrapper";
 const CheckoutItem = ({ id, name, amount, imageUrl, price }) => {
 	const { toggleAmount, deleteItemFromCart } = useCartContext();
 
@@ -14,7 +14,7 @@ const CheckoutItem = ({ id, name, amount, imageUrl, price }) => {
 		deleteItemFromCart(id);
 	};
 	return (
-		<div className="checkout-item-container">
+		<Wrapper>
 			<div className="image-container">
 				<img src={imageUrl} alt={name} />
 			</div>
@@ -32,7 +32,7 @@ const CheckoutItem = ({ id, name, amount, imageUrl, price }) => {
 			<div onClick={removeHandler} className="remove-button">
 				&#10005;
 			</div>
-		</div>
+		</Wrapper>
 	);
 };
 

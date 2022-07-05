@@ -1,5 +1,5 @@
 import React from "react";
-import "./productCard.styles.scss";
+import Wrapper from "./Wrapper";
 import Button from "../Button/Button";
 import { useCartContext } from "../../contexts/cartContext";
 const ProductCard = ({ id, imageUrl, name, price }) => {
@@ -9,7 +9,7 @@ const ProductCard = ({ id, imageUrl, name, price }) => {
 		addToCart({ id, imageUrl, name, price, amount: 1 });
 	};
 	return (
-		<div className="product-card-container">
+		<Wrapper>
 			<img src={imageUrl} alt={name} />
 			<div className="footer">
 				<span className="name">{name}</span>
@@ -18,7 +18,7 @@ const ProductCard = ({ id, imageUrl, name, price }) => {
 			<Button onClick={addItemToCart} buttonType="inverted" type="button">
 				Add to Card
 			</Button>
-		</div>
+		</Wrapper>
 	);
 };
 
