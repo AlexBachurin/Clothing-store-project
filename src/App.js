@@ -5,6 +5,7 @@ import ShopPage from "./pages/Shop/ShopPage";
 import HomePage from "./pages/Home/HomePage";
 import AuthenticationPage from "./pages/Authentication/AuthenticationPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
+import ErrorPage from "./pages/Error/ErrorPage";
 function App() {
 	return (
 		<Routes>
@@ -14,6 +15,7 @@ function App() {
 				<Route path="/auth" element={<AuthenticationPage />} />
 				<Route path="/checkout" element={<CheckoutPage />} />
 			</Route>
+			<Route path="*" element={<ErrorPage />} />
 		</Routes>
 	);
 }
