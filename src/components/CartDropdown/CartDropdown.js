@@ -17,6 +17,9 @@ const CartDropdown = () => {
 	return (
 		<Wrapper>
 			<div className="cart-items">
+				{cartItems.length === 0 ? (
+					<span className="empty-message">Your cart is empty</span>
+				) : null}
 				{cartItems.map((cartItem) => {
 					return <CartItem key={cartItem.id} {...cartItem} />;
 				})}

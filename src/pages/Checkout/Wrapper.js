@@ -24,7 +24,22 @@ const Wrapper = styled.div`
 			}
 		}
 	}
-
+	.empty {
+		display: flex;
+		flex-direction: column;
+		margin-top: 20px;
+		font-size: 20px;
+		gap: 20px;
+		text-transform: capitalize;
+		&-message {
+			font-weight: bold;
+		}
+		&-link {
+			display: block;
+			color: #4285f4;
+			text-align: center;
+		}
+	}
 	.total {
 		margin-top: 30px;
 		margin-left: auto;

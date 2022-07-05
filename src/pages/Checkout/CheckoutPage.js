@@ -2,7 +2,7 @@ import React from "react";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 import { useCartContext } from "../../contexts/cartContext";
 import Wrapper from "./Wrapper";
-
+import { Link } from "react-router-dom";
 const CheckoutPage = () => {
 	const { cartItems, cartTotal } = useCartContext();
 	return (
@@ -24,7 +24,15 @@ const CheckoutPage = () => {
 					<span>Remove</span>
 				</div>
 			</div>
-
+			{/* empty message if cart is empty */}
+			{cartItems.length === 0 ? (
+				<div className="empty">
+					<span className="empty-message">Your cart is empty</span>
+					<Link to="/shop">
+						<span className="empty-link">go shopping</span>
+					</Link>
+				</div>
+			) : null}
 			{cartItems.map((item) => {
 				return <CheckoutItem key={item.id} {...item} />;
 			})}
