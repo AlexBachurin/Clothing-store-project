@@ -1,13 +1,19 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import {
 	createUserDocumentFromAuth,
 	onAuthStateChangedListener,
 } from "../utils/firebase/firebase";
+import { USER_ACTION_TYPES } from "../actions/userActions";
+import { userReducer } from "../reducers/userReducer";
 
 const UserContext = React.createContext();
 
+const initialState = {
+	currentUser: null,
+};
+
 const UserProvider = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [state, dispatch] = useReducer(userReducer, initialState);
 
 	useEffect(() => {
 		//listen to auth change
@@ -17,14 +23,18 @@ const UserProvider = ({ children }) => {
 			}
 			setCurrentUser(user);
 		});
+
 		//unsubscribe from listener every time component unmounts
 		return unsubscribe;
 	}, []);
 
+	const setCurrentUser = (user) => {
+		dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user });
+	};
 	return (
 		<UserContext.Provider
 			value={{
-				currentUser,
+				...state,
 				setCurrentUser,
 			}}
 		>
