@@ -1,12 +1,12 @@
 import React from "react";
 import { useCategoriesContext } from "../../contexts/categoriesContext";
 import CategoryPreview from "../../components/CategoryPreview/CategoryPreview";
-import "./categoriesPreview.styles.scss";
+import Wrapper from "./Wrapper";
 const CategoriesPreview = () => {
 	const { categories } = useCategoriesContext();
 
 	return (
-		<div className="categories-preview-container">
+		<Wrapper>
 			{
 				// use object keys to get the title from categories object
 				//and pass to CategoryPreview component title and associated products with this title
@@ -20,7 +20,7 @@ const CategoriesPreview = () => {
 					);
 				})
 			}
-		</div>
+		</Wrapper>
 	);
 };
 

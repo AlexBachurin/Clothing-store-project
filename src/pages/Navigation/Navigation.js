@@ -6,7 +6,7 @@ import CartIcon from "../../components/CartIcon/CartIcon";
 import { useCartContext } from "../../contexts/cartContext";
 import { useUserContext } from "../../contexts/userContext";
 import { signOutUser } from "../../utils/firebase/firebase";
-import "./navigation.styles.scss";
+import Wrapper from "./Wrapper";
 const Navigation = () => {
 	const { currentUser } = useUserContext();
 	const { isCartOpen, openCart } = useCartContext();
@@ -20,8 +20,8 @@ const Navigation = () => {
 		openCart();
 	};
 	return (
-		<>
-			<div className="navigation">
+		<Wrapper>
+			<nav className="navigation">
 				<Link to="/" className="logo-container">
 					<Logo className="logo" />
 				</Link>
@@ -42,10 +42,10 @@ const Navigation = () => {
 					<CartIcon handleOpenCart={handleOpenCart} />
 					{isCartOpen ? <CartDropdown /> : null}
 				</div>
-			</div>
+			</nav>
 			{/* display Outlet under Navigation at all times, there will be nested routes */}
 			<Outlet />
-		</>
+		</Wrapper>
 	);
 };
 
