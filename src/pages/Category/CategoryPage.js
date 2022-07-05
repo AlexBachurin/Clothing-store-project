@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./categoryPage.styles.scss";
+import Wrapper from "./Wrapper";
 import { useParams } from "react-router-dom";
 import { useCategoriesContext } from "../../contexts/categoriesContext";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -15,7 +15,7 @@ const CategoryPage = () => {
 		setProducts(categories[categoryName]);
 	}, [categoryName, categories]);
 	return (
-		<>
+		<Wrapper>
 			<h2 className="category-title">{categoryName}</h2>
 			<div className="category-items-container">
 				{products &&
@@ -23,7 +23,7 @@ const CategoryPage = () => {
 						return <ProductCard key={product.id} {...product} />;
 					})}
 			</div>
-		</>
+		</Wrapper>
 	);
 };
 
