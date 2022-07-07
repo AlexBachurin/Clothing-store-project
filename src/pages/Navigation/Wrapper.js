@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 		margin-bottom: 25px;
 
 		.logo-container {
-			height: 100%;
+			/* height: 100%; */
 			width: 70px;
 			padding: 25px;
 			display: grid;
