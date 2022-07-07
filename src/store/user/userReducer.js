@@ -1,6 +1,6 @@
-import { USER_ACTION_TYPES } from "../actions/userActions";
+import { USER_ACTION_TYPES } from "./userActionTypes";
 
-const initialState = {
+export const initialState = {
 	currentUser: null,
 };
 
