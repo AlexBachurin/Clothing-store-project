@@ -11,7 +11,6 @@ export const CategoriesProvider = ({ children }) => {
 		//get categories from db, since it async wrap it in internal function
 		const getCategoriesMap = async () => {
 			const categoryMap = await getCategoriesAndDocuments();
-			console.log(categoryMap);
 			setCategories(categoryMap);
 		};
 		//then call it

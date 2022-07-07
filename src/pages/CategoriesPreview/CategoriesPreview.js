@@ -1,9 +1,9 @@
 import React from "react";
-import { useCategoriesContext } from "../../contexts/categoriesContext";
 import CategoryPreview from "../../components/CategoryPreview/CategoryPreview";
 import Wrapper from "./Wrapper";
+import { useSelector } from "react-redux";
 const CategoriesPreview = () => {
-	const { categories } = useCategoriesContext();
+	const { categories } = useSelector((store) => store.categories);
 
 	return (
 		<Wrapper>

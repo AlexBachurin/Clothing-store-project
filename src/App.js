@@ -29,6 +29,7 @@ function App() {
 		//unsubscribe from listener every time component unmounts
 		return unsubscribe;
 	}, []);
+
 	return (
 		<Routes>
 			<Route path="/" element={<Navigation />}>
