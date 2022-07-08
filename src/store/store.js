@@ -10,12 +10,13 @@ const middleWares = [
 	thunk,
 ].filter(Boolean);
 
-//Persistor to save state after reload
+//Persistor to save cart state after reload
 const persistConfig = {
 	key: "root",
 	storage,
-	// blacklist user since we have onAuthStateChange listener
-	blacklist: ["user"],
+	// blacklist user since we have onAuthStateChange listener and categories
+	blacklist: ["user", "categories"],
+	whitelist: ["cart"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
