@@ -18,7 +18,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+//devtools
+const composeEhnancer =
+	(process.env.NODE_ENV !== "production" &&
+		window &&
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+	compose;
+const composedEnhancers = composeEhnancer(applyMiddleware(...middleWares));
 //pass middleWare as 3rd argument, so we pass second argument as undefined
 export const store = createStore(persistedReducer, composedEnhancers);
 
