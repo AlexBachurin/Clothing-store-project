@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
+
 import { setCategories } from "../../store/categories/categoriesAction";
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
 import CategoriesPreview from "../CategoriesPreview/CategoriesPreview";
@@ -17,6 +18,7 @@ const ShopPage = () => {
 		//then call it
 		getCategoriesMap();
 	}, []);
+
 	return (
 		<Routes>
 			<Route index element={<CategoriesPreview />} />

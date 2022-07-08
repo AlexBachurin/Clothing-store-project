@@ -1,12 +1,16 @@
 import React from "react";
 import Wrapper from "./Wrapper";
 import Button from "../Button/Button";
-import { useCartContext } from "../../contexts/cartContext";
+import { useDispatch } from "react-redux";
+import { addToCart, setIsCartOpen } from "../../store/cart/cartAction";
 const ProductCard = ({ id, imageUrl, name, price }) => {
-	const { addToCart } = useCartContext();
+	const dispatch = useDispatch();
+
 	//send object to cart with all values and add amount of 1 as default
 	const addItemToCart = () => {
-		addToCart({ id, imageUrl, name, price, amount: 1 });
+		dispatch(addToCart({ id, imageUrl, name, price, amount: 1 }));
+		//open cart dropdown when adding to cart
+		dispatch(setIsCartOpen(true));
 	};
 	return (
 		<Wrapper>

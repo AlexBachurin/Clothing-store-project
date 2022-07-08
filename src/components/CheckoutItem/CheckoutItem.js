@@ -1,17 +1,18 @@
 import React from "react";
-import { useCartContext } from "../../contexts/cartContext";
+import { useDispatch } from "react-redux";
+
+import { deleteItemFromCart, toggleAmount } from "../../store/cart/cartAction";
 import Wrapper from "./Wrapper";
 const CheckoutItem = ({ id, name, amount, imageUrl, price }) => {
-	const { toggleAmount, deleteItemFromCart } = useCartContext();
-
+	const dispatch = useDispatch();
 	const incrementAmount = () => {
-		toggleAmount(id, "inc");
+		dispatch(toggleAmount(id, "inc"));
 	};
 	const decrementAmount = () => {
-		toggleAmount(id, "dec");
+		dispatch(toggleAmount(id, "dec"));
 	};
 	const removeHandler = () => {
-		deleteItemFromCart(id);
+		dispatch(deleteItemFromCart(id));
 	};
 	return (
 		<Wrapper>

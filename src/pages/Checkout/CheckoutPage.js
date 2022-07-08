@@ -1,10 +1,11 @@
 import React from "react";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
-import { useCartContext } from "../../contexts/cartContext";
+
 import Wrapper from "./Wrapper";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const CheckoutPage = () => {
-	const { cartItems, cartTotal } = useCartContext();
+	const { cartItems, cartTotal } = useSelector((store) => store.cart);
 	return (
 		<Wrapper>
 			<div className="checkout-header">
