@@ -1,23 +1,24 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/nav-logo.svg";
 import CartDropdown from "../../components/CartDropdown/CartDropdown";
 import CartIcon from "../../components/CartIcon/CartIcon";
-import { useCartContext } from "../../contexts/cartContext";
-import { useUserContext } from "../../contexts/userContext";
+import { openCart } from "../../store/cart/cartAction";
+
 import { signOutUser } from "../../utils/firebase/firebase";
 import Wrapper from "./Wrapper";
 const Navigation = () => {
-	const { currentUser } = useUserContext();
-	const { isCartOpen, openCart } = useCartContext();
-
+	const { currentUser } = useSelector((store) => store.user);
+	const { isCartOpen } = useSelector((store) => store.cart);
+	const dispatch = useDispatch();
 	const logoutUser = async () => {
 		await signOutUser();
 	};
 
 	//open cart
 	const handleOpenCart = () => {
-		openCart();
+		dispatch(openCart());
 	};
 	return (
 		<Wrapper>

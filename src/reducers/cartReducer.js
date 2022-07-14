@@ -96,7 +96,8 @@ const cartReducer = (state, action) => {
 		//CALCULATE TOTAL ITEMS IN CART
 		case CART_ACTION_TYPES.CALCULATE_TOTAL_ITEMS:
 			const newCartCount = state.cartItems.reduce((total, cartItem) => {
-				return total + cartItem.amount;
+				let totalAmount = total + cartItem.amount;
+				return totalAmount;
 			}, 0);
 			return {
 				...state,

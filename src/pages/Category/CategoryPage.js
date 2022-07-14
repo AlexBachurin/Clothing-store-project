@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
 import { useParams } from "react-router-dom";
-import { useCategoriesContext } from "../../contexts/categoriesContext";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import { useSelector } from "react-redux";
+import Spinner from "../../components/Spinner/Spinner";
 const CategoryPage = () => {
 	//get target url with clicked category name using useParams
 	const { categoryName } = useParams();
-	const { categories } = useCategoriesContext();
+	const { categories, isLoading } = useSelector((store) => store.categories);
 	//state for storing products
 	const [products, setProducts] = useState([]);
 	//every time categoryName or categories from db changes call useEffect to rerender page
@@ -17,12 +18,16 @@ const CategoryPage = () => {
 	return (
 		<Wrapper>
 			<h2 className="category-title">{categoryName}</h2>
-			<div className="category-items-container">
-				{products &&
-					products.map((product) => {
-						return <ProductCard key={product.id} {...product} />;
-					})}
-			</div>
+			{isLoading ? (
+				<Spinner />
+			) : (
+				<div className="category-items-container">
+					{products &&
+						products.map((product) => {
+							return <ProductCard key={product.id} {...product} />;
+						})}
+				</div>
+			)}
 		</Wrapper>
 	);
 };

@@ -1,9 +1,9 @@
 import React from "react";
 import { ReactComponent as Icon } from "../../assets/cart-icon.svg";
-import { useCartContext } from "../../contexts/cartContext";
+import { useSelector } from "react-redux";
 import Wrapper from "./Wrapper";
 const CartIcon = ({ handleOpenCart }) => {
-	const { cartCount } = useCartContext();
+	const { cartCount } = useSelector((store) => store.cart);
 	return (
 		<Wrapper onClick={handleOpenCart}>
 			<Icon className="cart-icon" />

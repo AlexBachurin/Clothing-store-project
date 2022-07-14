@@ -1,11 +1,12 @@
 import React from "react";
-import { useCartContext } from "../../contexts/cartContext";
+import { useDispatch } from "react-redux";
+import { deleteItemFromCart } from "../../store/cart/cartAction";
 import Wrapper from "./Wrapper";
 
 const CartItem = ({ id, name, price, imageUrl, amount }) => {
-	const { deleteItemFromCart } = useCartContext();
+	const dispatch = useDispatch();
 	const deleteFromCart = () => {
-		deleteItemFromCart(id);
+		dispatch(deleteItemFromCart(id));
 	};
 	return (
 		<Wrapper>
