@@ -22,14 +22,14 @@ export const fetchCategoriesRejected = (error) => {
 	return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_REJECTED, error);
 };
 
-export const fetchCategoriesAsyncThunk = () => {
-	return async (dispatch) => {
-		dispatch(fetchCategoriesStart());
-		try {
-			const categoriesObj = await getCategoriesAndDocuments("categories");
-			dispatch(fetchCategoriesSuccess(categoriesObj));
-		} catch (error) {
-			dispatch(fetchCategoriesRejected(error));
-		}
-	};
-};
+// export const fetchCategoriesAsyncThunk = () => {
+// 	return async (dispatch) => {
+// 		dispatch(fetchCategoriesStart());
+// 		try {
+// 			const categoriesObj = await getCategoriesAndDocuments("categories");
+// 			dispatch(fetchCategoriesSuccess(categoriesObj));
+// 		} catch (error) {
+// 			dispatch(fetchCategoriesRejected(error));
+// 		}
+// 	};
+// };
