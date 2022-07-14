@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
 
-import {
-	fetchCategoriesAsyncThunk,
-	fetchCategoriesStart,
-	setCategories,
-} from "../../store/categories/categoriesAction";
+import { fetchCategoriesStart } from "../../store/categories/categoriesAction";
 import CategoriesPreview from "../CategoriesPreview/CategoriesPreview";
 import CategoryPage from "../Category/CategoryPage";
 const ShopPage = () => {

@@ -1,6 +1,6 @@
 import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes";
 import { createAction } from "../../utils/createAction";
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
+// import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
 
 export const setCategories = (categories) => {
 	//will just create an object with passed action type and payload as user
