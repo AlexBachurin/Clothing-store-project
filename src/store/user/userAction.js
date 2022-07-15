@@ -26,3 +26,11 @@ export const signInSuccess = (user) => {
 export const signInFailure = (error) => {
 	return createAction(USER_ACTION_TYPES.SIGN_IN_FAILURE, error);
 };
+
+export const emailSignUpStart = (email, password, displayName) => {
+	return createAction(USER_ACTION_TYPES.EMAIL_SIGN_UP_START, {
+		email,
+		password,
+		displayName,
+	});
+};

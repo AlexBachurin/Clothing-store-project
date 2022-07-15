@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+	emailSignInStart,
+	emailSignUpStart,
+} from "../../store/user/userAction";
 
 import {
 	createAuthUserWithEmailAndPassword,
@@ -8,6 +13,8 @@ import Button from "../Button/Button";
 import FormInput from "../FormInput/FormInput";
 import Wrapper from "./Wrapper";
 const SignUpForm = () => {
+	const dispatch = useDispatch();
+
 	const [inputValues, setInputValues] = useState({
 		displayName: "",
 		email: "",
@@ -47,16 +54,23 @@ const SignUpForm = () => {
 			return;
 		}
 		try {
-			//get back response of promise when trying to create user with email and password
-			const res = await createAuthUserWithEmailAndPassword(
-				inputValues.email,
-				inputValues.password
+			// //get back response of promise when trying to create user with email and password
+			// const res = await createAuthUserWithEmailAndPassword(
+			// 	inputValues.email,
+			// 	inputValues.password
+			// );
+			// const user = res.user;
+			// //add userName before creating doc
+			// user.displayName = inputValues.displayName;
+			// //create user doc in db from response
+			// await createUserDocumentFromAuth(user);
+			dispatch(
+				emailSignUpStart(
+					inputValues.email,
+					inputValues.password,
+					inputValues.displayName
+				)
 			);
-			const user = res.user;
-			//add userName before creating doc
-			user.displayName = inputValues.displayName;
-			//create user doc in db from response
-			await createUserDocumentFromAuth(user);
 			//clear form
 			clearFormFields();
 		} catch (error) {
