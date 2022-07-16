@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import PaymentForm from "../../components/PaymentForm/PaymentForm";
 const CheckoutPage = () => {
 	const { cartItems, cartTotal } = useSelector((store) => store.cart);
+	const { currentUser } = useSelector((store) => store.user);
 	return (
 		<Wrapper>
 			<div className="checkout-header">
@@ -40,7 +41,9 @@ const CheckoutPage = () => {
 			})}
 
 			<span className="total">{`Total: ${cartTotal}$`}</span>
-			<PaymentForm />
+			{/* if nothing in cart dont display payment form */}
+			{/* also dont display payment form if user is not logged in */}
+			{cartItems.length > 0 && currentUser ? <PaymentForm /> : null}
 		</Wrapper>
 	);
 };
