@@ -5,8 +5,14 @@ import {
 	getCurrentUser,
 	loginWithEmailAndPassword,
 	signInWithGooglePopup,
+	signOutUser,
 } from "../../utils/firebase/firebase";
-import { signInFailure, signInSuccess } from "./userAction";
+import {
+	signInFailure,
+	signInSuccess,
+	signOutFailure,
+	signOutSuccess,
+} from "./userAction";
 import { USER_ACTION_TYPES } from "./userActionTypes";
 
 export function* getSnapshotFromUserAuth(userAuth) {
@@ -14,7 +20,8 @@ export function* getSnapshotFromUserAuth(userAuth) {
 		//get snapshot of user from firebase or create new if user doesnt exist
 		const userSnapshot = yield call(createUserDocumentFromAuth, userAuth);
 		//sign in with success
-		yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data }));
+		console.log(userSnapshot.data());
+		yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
 	} catch (error) {
 		yield put(signInFailure(error));
 	}
@@ -38,6 +45,7 @@ export function* signInWithGoogle() {
 		yield call(getSnapshotFromUserAuth, user);
 	} catch (error) {
 		yield put(signInFailure(error));
+		alert(error.code);
 	}
 }
 export function* signInWithEmailPassword({ payload }) {
@@ -47,6 +55,7 @@ export function* signInWithEmailPassword({ payload }) {
 		yield call(getSnapshotFromUserAuth, user);
 	} catch (error) {
 		yield put(signInFailure(error));
+		alert(error.code);
 	}
 }
 
@@ -62,6 +71,16 @@ export function* emailSignUp(action) {
 		yield call(getSnapshotFromUserAuth, user);
 	} catch (error) {
 		yield put(signInFailure(error));
+		alert(error.code);
+	}
+}
+
+export function* signOut() {
+	try {
+		yield call(signOutUser);
+		yield put(signOutSuccess());
+	} catch (error) {
+		yield put(signOutFailure(error));
 	}
 }
 
@@ -85,11 +104,17 @@ export function* onEmailSignUpStart() {
 	yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_UP_START, emailSignUp);
 }
 
+//SIGN OUT
+export function* onSignOutStart() {
+	yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
+}
+
 export function* userSagas() {
 	yield all([
 		call(onCheckUserSession),
 		call(onGoogleSignInStart),
 		call(onEmailSignInStart),
 		call(onEmailSignUpStart),
+		call(onSignOutStart),
 	]);
 }

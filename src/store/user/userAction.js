@@ -34,3 +34,15 @@ export const emailSignUpStart = (email, password, displayName) => {
 		displayName,
 	});
 };
+
+export const signOutStart = () => {
+	return createAction(USER_ACTION_TYPES.SIGN_OUT_START);
+};
+
+export const signOutSuccess = () => {
+	return createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
+};
+
+export const signOutFailure = (error) => {
+	return createAction(USER_ACTION_TYPES.SIGN_OUT_FAILURE, error);
+};

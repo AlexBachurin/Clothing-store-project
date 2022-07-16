@@ -5,15 +5,14 @@ import { ReactComponent as Logo } from "../../assets/nav-logo.svg";
 import CartDropdown from "../../components/CartDropdown/CartDropdown";
 import CartIcon from "../../components/CartIcon/CartIcon";
 import { openCart } from "../../store/cart/cartAction";
-
-import { signOutUser } from "../../utils/firebase/firebase";
+import { signOutStart } from "../../store/user/userAction";
 import Wrapper from "./Wrapper";
 const Navigation = () => {
 	const { currentUser } = useSelector((store) => store.user);
 	const { isCartOpen } = useSelector((store) => store.cart);
 	const dispatch = useDispatch();
-	const logoutUser = async () => {
-		await signOutUser();
+	const logoutUser = () => {
+		dispatch(signOutStart());
 	};
 
 	//open cart

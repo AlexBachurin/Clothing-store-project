@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	emailSignInStart,
 	emailSignUpStart,
@@ -14,7 +14,7 @@ import FormInput from "../FormInput/FormInput";
 import Wrapper from "./Wrapper";
 const SignUpForm = () => {
 	const dispatch = useDispatch();
-
+	const { error: errorMessage } = useSelector((store) => store.user);
 	const [inputValues, setInputValues] = useState({
 		displayName: "",
 		email: "",
