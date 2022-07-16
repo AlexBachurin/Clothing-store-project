@@ -4,6 +4,7 @@ import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 import Wrapper from "./Wrapper";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import PaymentForm from "../../components/PaymentForm/PaymentForm";
 const CheckoutPage = () => {
 	const { cartItems, cartTotal } = useSelector((store) => store.cart);
 	return (
@@ -39,6 +40,7 @@ const CheckoutPage = () => {
 			})}
 
 			<span className="total">{`Total: ${cartTotal}$`}</span>
+			<PaymentForm />
 		</Wrapper>
 	);
 };
