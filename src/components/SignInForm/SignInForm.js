@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-
-import {
-	loginWithEmailAndPassword,
-	signInWithGooglePopup,
-} from "../../utils/firebase/firebase";
 import Button from "../Button/Button";
 import FormInput from "../FormInput/FormInput";
 import Wrapper from "./Wrapper";
+import { useDispatch } from "react-redux";
+import {
+	emailSignInStart,
+	googleSignInStart,
+} from "../../store/user/userAction";
 const SignInForm = () => {
+	const dispatch = useDispatch();
 	const [inputValues, setInputValues] = useState({
 		email: "",
 		password: "",
@@ -36,7 +37,7 @@ const SignInForm = () => {
 		}
 		//try to sign in user
 		try {
-			await loginWithEmailAndPassword(inputValues.email, inputValues.password);
+			dispatch(emailSignInStart(inputValues.email, inputValues.password));
 
 			clearFormFields();
 		} catch (error) {
@@ -54,7 +55,7 @@ const SignInForm = () => {
 	};
 	//login with google
 	const logUserWithGooglePopup = async () => {
-		await signInWithGooglePopup();
+		dispatch(googleSignInStart());
 	};
 	return (
 		<Wrapper>

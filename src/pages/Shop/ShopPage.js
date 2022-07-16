@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
 
-import {
-	fetchCategoriesAsyncThunk,
-	setCategories,
-} from "../../store/categories/categoriesAction";
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
+import { fetchCategoriesStart } from "../../store/categories/categoriesAction";
 import CategoriesPreview from "../CategoriesPreview/CategoriesPreview";
 import CategoryPage from "../Category/CategoryPage";
 const ShopPage = () => {
@@ -20,7 +16,8 @@ const ShopPage = () => {
 		// };
 		// //then call it
 		// getCategoriesMap();
-		dispatch(fetchCategoriesAsyncThunk());
+		// dispatch(fetchCategoriesAsyncThunk());
+		dispatch(fetchCategoriesStart());
 	}, []);
 
 	return (

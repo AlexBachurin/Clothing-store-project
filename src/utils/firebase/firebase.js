@@ -75,6 +75,25 @@ export const onAuthStateChangedListener = (callback) => {
 	return onAuthStateChanged(auth, callback);
 };
 
+//get current user
+export const getCurrentUser = () => {
+	return new Promise((resolve, reject) => {
+		//unsubscribe the moment we get a value
+		const unsubcribe = onAuthStateChanged(
+			auth,
+			(userAuth) => {
+				//when we get the value, immediately unsubscribe from listener
+				//to prevent memory leak
+				unsubcribe();
+				//then resolve with userAuth value
+				resolve(userAuth);
+			},
+			//if error reject
+			reject
+		);
+	});
+};
+
 //create db(points to our database)
 export const db = getFirestore();
 
@@ -102,7 +121,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 		}
 	}
 	//if user data exists
-	return userDocRef;
+	return userSnapshot;
 };
 
 //method to upload categories from internal data to firebase
