@@ -24,7 +24,7 @@ const Wrapper = styled.button`
 		border: 1px solid black;
 	}
 
-	&.google-sign-in {
+	&.google {
 		background-color: #4285f4;
 		color: white;
 
