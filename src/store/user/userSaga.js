@@ -13,7 +13,7 @@ import {
 	signOutFailure,
 	signOutSuccess,
 } from "./userAction";
-import { USER_ACTION_TYPES } from "./userActionTypes";
+import { USER_ACTION_TYPES } from "./userTypes";
 
 export function* getSnapshotFromUserAuth(userAuth) {
 	try {

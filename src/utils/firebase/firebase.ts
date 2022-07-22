@@ -8,6 +8,9 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 	onAuthStateChanged,
+	User,
+	UserCredential,
+	NextOrObserver,
 } from "firebase/auth";
 import {
 	getFirestore,
@@ -18,7 +21,10 @@ import {
 	writeBatch,
 	query,
 	getDocs,
+	QueryDocumentSnapshot,
 } from "firebase/firestore";
+import { CategoryMap } from "../../store/categories/categoriesTypes";
+import { UserData } from "../../store/user/userTypes";
 const firebaseConfig = {
 	apiKey: "AIzaSyBIgVjNHPDpzwnDP_PoCq77z0-j2snE9A4",
 	authDomain: "clothing-store2022-442f6.firebaseapp.com",
@@ -48,7 +54,10 @@ export const signInWithGoogleRedirect = () => {
 };
 
 //auth with email and password
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (
+	email: string,
+	password: string
+): Promise<void | UserCredential> => {
 	//if no email or password provided just return
 	if (!email || !password) return;
 	//else create user
@@ -56,7 +65,10 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 //login with email and password
-export const loginWithEmailAndPassword = async (email, password) => {
+export const loginWithEmailAndPassword = async (
+	email: string,
+	password: string
+): Promise<void | UserCredential> => {
 	//if no email or password provided just return
 	if (!email || !password) return;
 	//else return promise
@@ -70,13 +82,13 @@ export const signOutUser = async () => {
 
 //AUTH LISTENER
 //take callback and then auth state changes call this callback
-export const onAuthStateChangedListener = (callback) => {
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => {
 	//this is permanent listener
 	return onAuthStateChanged(auth, callback);
 };
 
 //get current user
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
 	return new Promise((resolve, reject) => {
 		//unsubscribe the moment we get a value
 		const unsubcribe = onAuthStateChanged(
@@ -98,7 +110,10 @@ export const getCurrentUser = () => {
 export const db = getFirestore();
 
 //create Users in our database
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+	userAuth: User
+): Promise<void | QueryDocumentSnapshot<UserData>> => {
+	if (!userAuth) return;
 	//we want to get data from user authentication and store it inside our db
 	// db = database, 'users' - collection name, id of user(user.uid) - document name
 	const userDocRef = doc(db, "users", userAuth.uid);
@@ -117,18 +132,22 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 				createdAt,
 			});
 		} catch (error) {
-			console.log("error at creating user document", error.message);
+			console.log("error at creating user document", error);
 		}
 	}
 	//if user data exists
-	return userSnapshot;
+	return userSnapshot as QueryDocumentSnapshot<UserData>;
+};
+
+export type ObjectToAdd = {
+	title: string;
 };
 
 //method to upload categories from internal data to firebase
-export const addCollectionAndDocuments = async (
-	collectionKey,
-	objectsToAdd
-) => {
+export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
+	collectionKey: string,
+	objectsToAdd: T[]
+): Promise<void> => {
 	//create new collection in our db, with passed name(collectionKey);
 	const collectionRef = collection(db, collectionKey);
 	//write all objects to collection in 1 successfull transaction
@@ -146,7 +165,7 @@ export const addCollectionAndDocuments = async (
 };
 
 //fetch categories data from db
-export const getCategoriesAndDocuments = async () => {
+export const getCategoriesAndDocuments = async (): Promise<CategoryMap> => {
 	const collectionRef = collection(db, "categories");
 	//get query to create snapshow
 	const q = query(collectionRef);
@@ -156,7 +175,7 @@ export const getCategoriesAndDocuments = async () => {
 		const { title, items } = curDocSnapshot.data();
 		acc[title.toLowerCase()] = items;
 		return acc;
-	}, {});
+	}, {} as CategoryMap);
 
 	return categoryMap;
 };
