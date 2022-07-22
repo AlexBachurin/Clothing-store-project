@@ -109,9 +109,14 @@ export const getCurrentUser = (): Promise<User | null> => {
 //create db(points to our database)
 export const db = getFirestore();
 
+export type AdditionalInformation = {
+	displayName?: string;
+};
+
 //create Users in our database
 export const createUserDocumentFromAuth = async (
-	userAuth: User
+	userAuth: User,
+	additionalInformation: AdditionalInformation = {} as AdditionalInformation
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
 	if (!userAuth) return;
 	//we want to get data from user authentication and store it inside our db
@@ -130,6 +135,7 @@ export const createUserDocumentFromAuth = async (
 				displayName,
 				email,
 				createdAt,
+				...additionalInformation,
 			});
 		} catch (error) {
 			console.log("error at creating user document", error);

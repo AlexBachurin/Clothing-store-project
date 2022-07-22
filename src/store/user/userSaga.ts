@@ -1,6 +1,7 @@
 import { User } from "firebase/auth";
 import { takeLatest, put, all, call } from "typed-redux-saga/macro";
 import {
+	AdditionalInformation,
 	createAuthUserWithEmailAndPassword,
 	createUserDocumentFromAuth,
 	getCurrentUser,
@@ -17,10 +18,17 @@ import {
 } from "./userAction";
 import { USER_ACTION_TYPES } from "./userTypes";
 
-export function* getSnapshotFromUserAuth(userAuth: User) {
+export function* getSnapshotFromUserAuth(
+	userAuth: User,
+	additionalDetails?: AdditionalInformation
+) {
 	try {
 		//get snapshot of user from firebase or create new if user doesnt exist
-		const userSnapshot = yield* call(createUserDocumentFromAuth, userAuth);
+		const userSnapshot = yield* call(
+			createUserDocumentFromAuth,
+			userAuth,
+			additionalDetails
+		);
 		//sign in with success
 		if (userSnapshot) {
 			yield* put(
@@ -81,7 +89,7 @@ export function* emailSignUp({ payload }: EmailSignUpStart) {
 		);
 		if (userCredential) {
 			const { user } = userCredential;
-			yield* call(getSnapshotFromUserAuth, user);
+			yield* call(getSnapshotFromUserAuth, user, { displayName });
 		}
 	} catch (error) {
 		yield* put(signInFailure(error as Error));
