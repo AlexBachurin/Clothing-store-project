@@ -44,35 +44,35 @@ export type CartAction =
 	| CalculateTotalItems;
 
 //toggle open cart
-export const openCart = () => {
+export const openCart = (): OpenCart => {
 	return createAction(CART_ACTION_TYPES.OPEN_CART);
 };
 //open cart with provided value
-export const setIsCartOpen = (bool: boolean) => {
+export const setIsCartOpen = (bool: boolean): SetIsCartOpen => {
 	return createAction(CART_ACTION_TYPES.SET_OPEN_CART, bool);
 };
 //add item to cart
-export const addToCart = (item: CartItem) => {
+export const addToCart = (item: CartItem): AddToCart => {
 	return createAction(CART_ACTION_TYPES.ADD_TO_CART, item);
 };
 
 //delete item from cart
-export const deleteItemFromCart = (id: number) => {
+export const deleteItemFromCart = (id: number): DeleteItemFromCart => {
 	return createAction(CART_ACTION_TYPES.DELETE_FROM_CART, id);
 };
 
 //increment/decrement amount in cart
-export const toggleAmount = (id: number, type: string) => {
+export const toggleAmount = (id: number, type: string): ToggleAmount => {
 	return createAction(CART_ACTION_TYPES.TOGGLE_AMOUNT, {
 		id: id,
 		operation: type,
 	});
 };
 //calculate total items
-export const calculateTotalItems = () => {
+export const calculateTotalItems = (): CalculateTotalItems => {
 	return createAction(CART_ACTION_TYPES.CALCULATE_TOTAL_ITEMS);
 };
 //calculate total price
-export const calculateTotalPrice = () => {
+export const calculateTotalPrice = (): CalculateTotalPrice => {
 	return createAction(CART_ACTION_TYPES.CALCULATE_TOTAL_PRICE);
 };
