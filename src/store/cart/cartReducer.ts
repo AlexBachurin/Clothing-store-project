@@ -1,31 +1,42 @@
-import { CART_ACTION_TYPES } from "./cartActionTypes";
+import { AnyAction } from "redux";
+import { CartAction } from "./cartAction";
+import { CartItem, CART_ACTION_TYPES } from "./cartTypes";
 
-const initialState = {
+export type CartState = {
+	isCartOpen: boolean;
+	cartItems: CartItem[];
+	cartCount: number;
+	cartTotal: number;
+};
+
+const initialState: CartState = {
 	isCartOpen: false,
 	cartItems: [],
 	cartCount: 0,
 	cartTotal: 0,
 };
 
-export const cartReducer = (state = initialState, action) => {
-	const { type, payload } = action;
-	switch (type) {
+export const cartReducer = (
+	state = initialState,
+	action = {} as CartAction
+): CartState => {
+	switch (action.type) {
 		//toggle open cart
 		case CART_ACTION_TYPES.OPEN_CART:
 			return { ...state, isCartOpen: !state.isCartOpen };
 		//set open cart with provided payload(boolean)
 		case CART_ACTION_TYPES.SET_OPEN_CART:
-			return { ...state, isCartOpen: payload };
+			return { ...state, isCartOpen: action.payload };
 		//add to cart, payload provided is item object
 		case CART_ACTION_TYPES.ADD_TO_CART:
 			//check if cart already have item with same id
 			const findItemById = state.cartItems.find((item) => {
-				return item.id === payload.id;
+				return item.id === action.payload.id;
 			});
 			//if found  then increase amount of this item
 			if (findItemById) {
 				const newCartItems = state.cartItems.map((item) => {
-					if (item.id === payload.id) {
+					if (item.id === action.payload.id) {
 						return { ...item, amount: item.amount + 1 };
 					}
 					return item;
@@ -35,22 +46,22 @@ export const cartReducer = (state = initialState, action) => {
 			}
 			//else set new item to existing cart items array
 			else {
-				return { ...state, cartItems: [...state.cartItems, payload] };
+				return { ...state, cartItems: [...state.cartItems, action.payload] };
 			}
 		// DELETE FROM CART, payload - id of item
 		case CART_ACTION_TYPES.DELETE_FROM_CART:
 			//filter through cartItems and return new array without item with delete id
 			const newCartItems = state.cartItems.filter((item) => {
-				return item.id !== payload;
+				return item.id !== action.payload;
 			});
 			return { ...state, cartItems: newCartItems };
 		// TOGGLE AMOUNT, payload is object {id, operation type}
 		case CART_ACTION_TYPES.TOGGLE_AMOUNT:
-			const { id, operation } = payload;
+			const { id, operation } = action.payload;
 			//find item to operate by id
 			const findItemByID = state.cartItems.find((item) => item.id === id);
 			//if amount is 1, then delete item on decrement
-			if (findItemByID.amount === 1 && operation === "dec") {
+			if (findItemByID?.amount === 1 && operation === "dec") {
 				const newCartItems = state.cartItems.filter((item) => {
 					return item.id !== id;
 				});
