@@ -7,6 +7,7 @@ import {
 	createAction,
 	Action,
 	ActionWithPayload,
+	withMatcher,
 } from "../../utils/reducerUtils";
 
 export type FetchCategoriesStart =
@@ -27,24 +28,27 @@ export type CategoryAction =
 	| FetchCategoriesSuccess
 	| FetchCategoriesRejected;
 
-export const fetchCategoriesStart = (): FetchCategoriesStart => {
+export const fetchCategoriesStart = withMatcher((): FetchCategoriesStart => {
 	return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
-};
+});
 
-export const fetchCategoriesSuccess = (
-	categoriesObj: CategoryMap
-): FetchCategoriesSuccess => {
-	return createAction(
-		CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
-		categoriesObj
-	);
-};
+export const fetchCategoriesSuccess = withMatcher(
+	(categoriesObj: CategoryMap): FetchCategoriesSuccess => {
+		return createAction(
+			CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
+			categoriesObj
+		);
+	}
+);
 
-export const fetchCategoriesRejected = (
-	error: Error
-): FetchCategoriesRejected => {
-	return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_REJECTED, error);
-};
+export const fetchCategoriesRejected = withMatcher(
+	(error: Error): FetchCategoriesRejected => {
+		return createAction(
+			CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_REJECTED,
+			error
+		);
+	}
+);
 
 // export const fetchCategoriesAsyncThunk = () => {
 // 	return async (dispatch) => {

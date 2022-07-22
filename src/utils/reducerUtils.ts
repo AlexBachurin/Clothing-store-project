@@ -6,6 +6,27 @@ type Matchable<AC extends () => AnyAction> = AC & {
 	match(action: AnyAction): action is ReturnType<AC>;
 };
 
+//with matcher
+export function withMatcher<AC extends () => AnyAction & { type: string }>(
+	actionCreator: AC
+): Matchable<AC>;
+//overload for matcher with params
+export function withMatcher<
+	AC extends (...args: any[]) => AnyAction & { type: string }
+>(actionCreator: AC): Matchable<AC>;
+
+//action creator function return action and every action have a type
+export function withMatcher(actionCreator: Function) {
+	//invoking function of action creator we getting back object and then getting type
+	const type = actionCreator().type;
+	return Object.assign(actionCreator, {
+		type,
+		//if this is true then we get back ReturnType with right action
+		match(action: AnyAction) {
+			return action.type === type;
+		},
+	});
+}
 //type for action with payload
 export type ActionWithPayload<T, P> = {
 	type: T;
