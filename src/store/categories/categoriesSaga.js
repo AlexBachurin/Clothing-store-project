@@ -4,7 +4,7 @@ import {
 	fetchCategoriesRejected,
 	fetchCategoriesSuccess,
 } from "./categoriesAction";
-import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes";
+import { CATEGORIES_ACTION_TYPES } from "./categoriesTypes";
 
 //helper function to do job when we call fetch categories
 export function* fetchCategoriesAsync() {

@@ -1,4 +1,4 @@
-import { createAction } from "../../utils/createAction";
+import { createAction } from "../../utils/reducerUtils";
 import { CART_ACTION_TYPES } from "./cartActionTypes";
 
 //toggle open cart

@@ -1,5 +1,5 @@
 import { USER_ACTION_TYPES } from "./userActionTypes";
-import { createAction } from "../../utils/createAction";
+import { createAction } from "../../utils/reducerUtils";
 
 export const setCurrentUser = (user) => {
 	//will just create an object with passed action type and payload as user

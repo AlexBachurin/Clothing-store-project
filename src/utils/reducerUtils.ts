@@ -1,5 +1,11 @@
 import { AnyAction } from "redux";
 
+//matchable type for action creator
+type Matchable<AC extends () => AnyAction> = AC & {
+	type: ReturnType<AC>["type"];
+	match(action: AnyAction): action is ReturnType<AC>;
+};
+
 //type for action with payload
 export type ActionWithPayload<T, P> = {
 	type: T;

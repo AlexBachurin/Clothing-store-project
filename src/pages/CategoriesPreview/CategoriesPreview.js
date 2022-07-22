@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
 const CategoriesPreview = () => {
 	const { categories, isLoading } = useSelector((store) => store.categories);
-
 	return (
 		<Wrapper>
 			{
