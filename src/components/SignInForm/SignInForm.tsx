@@ -22,13 +22,13 @@ const SignInForm = () => {
 		});
 	};
 
-	const handleInputChange = (e) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const name = e.target.name;
 		const value = e.target.value;
 		setInputValues({ ...inputValues, [name]: value });
 	};
 	//sign in with email and password
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		//no email or pw return
 		if (!inputValues.email || !inputValues.password) {
@@ -41,16 +41,16 @@ const SignInForm = () => {
 
 			clearFormFields();
 		} catch (error) {
-			if (error.code === "auth/wrong-password") {
-				alert("Wrong password");
-			}
-			if (error.code === "auth/too-many-requests") {
-				alert("too many requests, try again a bit later");
-			}
-			if (error.code === "auth/user-not-found") {
-				alert("user not found");
-			}
-			console.log(error.message);
+			// if (error.code === "auth/wrong-password") {
+			// 	alert("Wrong password");
+			// }
+			// if (error.code === "auth/too-many-requests") {
+			// 	alert("too many requests, try again a bit later");
+			// }
+			// if (error.code === "auth/user-not-found") {
+			// 	alert("user not found");
+			// }
+			console.log(error);
 		}
 	};
 	//login with google
@@ -61,7 +61,7 @@ const SignInForm = () => {
 		<Wrapper>
 			<h2>Already have an account?</h2>
 			<span>Sign in with your email and password</span>
-			<form>
+			<form onSubmit={handleSubmit}>
 				{/* email */}
 				<FormInput
 					labelText="Email"
@@ -79,9 +79,7 @@ const SignInForm = () => {
 					type="password"
 				/>
 				<div className="btn-container">
-					<Button type="submit" onClick={handleSubmit}>
-						Sign In
-					</Button>
+					<Button type="submit">Sign In</Button>
 					<Button
 						type="button"
 						onClick={logUserWithGooglePopup}

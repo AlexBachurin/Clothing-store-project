@@ -9,7 +9,7 @@ import Wrapper from "./Wrapper";
 export type BUTTON_TYPE_CLASSES = "google" | "inverted";
 
 export type ButtonProps = {
-	buttonType: BUTTON_TYPE_CLASSES;
+	buttonType?: BUTTON_TYPE_CLASSES;
 	children: React.ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 

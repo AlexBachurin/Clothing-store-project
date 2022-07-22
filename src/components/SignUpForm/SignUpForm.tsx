@@ -22,12 +22,12 @@ const SignUpForm = () => {
 			confirmPassword: "",
 		});
 	};
-	const handleInputChange = (e) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const name = e.target.name;
 		const value = e.target.value;
 		setInputValues({ ...inputValues, [name]: value });
 	};
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		//fill all fields
 		if (
@@ -66,20 +66,21 @@ const SignUpForm = () => {
 			//clear form
 			clearFormFields();
 		} catch (error) {
-			if (error.code === "auth/email-already-in-use") {
-				alert("Cannot create user, email already in use");
-			} else if (error.code === "auth/weak-password") {
-				alert("Password should be at least 6 characters");
-			} else {
-				console.log(error.message);
-			}
+			// if (error.code === "auth/email-already-in-use") {
+			// 	alert("Cannot create user, email already in use");
+			// } else if (error.code === "auth/weak-password") {
+			// 	alert("Password should be at least 6 characters");
+			// } else {
+			// 	console.log(error.message);
+			// }
+			console.log(error);
 		}
 	};
 	return (
 		<Wrapper>
 			<h2>Don't have an account</h2>
 			<span>Sign up with your email and password</span>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<FormInput
 					labelText="Display Name"
 					changeHandler={handleInputChange}
@@ -112,9 +113,7 @@ const SignUpForm = () => {
 					type="password"
 				/>
 
-				<Button type="submit" onClick={handleSubmit}>
-					Sign up
-				</Button>
+				<Button type="submit">Sign up</Button>
 			</form>
 		</Wrapper>
 	);

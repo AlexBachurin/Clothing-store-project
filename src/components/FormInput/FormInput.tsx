@@ -1,7 +1,20 @@
-import React from "react";
+import React, { FC, InputHTMLAttributes } from "react";
 import Wrapper from "./Wrapper";
 import { FormInputLabel } from "./Wrapper";
-const FormInput = ({ labelText, changeHandler, inputValue, name, type }) => {
+
+export type FormInputProps = {
+	labelText: string;
+	changeHandler: React.ChangeEventHandler<HTMLInputElement>;
+	inputValue: string;
+} & InputHTMLAttributes<HTMLInputElement>;
+
+const FormInput: FC<FormInputProps> = ({
+	labelText,
+	changeHandler,
+	inputValue,
+	name,
+	type,
+}) => {
 	return (
 		<Wrapper>
 			<input
