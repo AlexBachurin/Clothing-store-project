@@ -1,4 +1,5 @@
-import { takeLatest, put, all, call } from "redux-saga/effects";
+import { User } from "firebase/auth";
+import { takeLatest, put, all, call } from "typed-redux-saga/macro";
 import {
 	createAuthUserWithEmailAndPassword,
 	createUserDocumentFromAuth,
@@ -7,6 +8,7 @@ import {
 	signInWithGooglePopup,
 	signOutUser,
 } from "../../utils/firebase/firebase";
+import { EmailSignInStart, EmailSignUpStart } from "./ActionTypes";
 import {
 	signInFailure,
 	signInSuccess,
@@ -15,72 +17,84 @@ import {
 } from "./userAction";
 import { USER_ACTION_TYPES } from "./userTypes";
 
-export function* getSnapshotFromUserAuth(userAuth) {
+export function* getSnapshotFromUserAuth(userAuth: User) {
 	try {
 		//get snapshot of user from firebase or create new if user doesnt exist
-		const userSnapshot = yield call(createUserDocumentFromAuth, userAuth);
+		const userSnapshot = yield* call(createUserDocumentFromAuth, userAuth);
 		//sign in with success
-		console.log(userSnapshot.data());
-		yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+		if (userSnapshot) {
+			yield* put(
+				signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+			);
+		}
 	} catch (error) {
-		yield put(signInFailure(error));
+		yield* put(signInFailure(error as Error));
 	}
 }
 
 export function* isUserAuthenticated() {
 	try {
 		//if successfull we will get back user object
-		const userAuth = yield call(getCurrentUser);
+		const userAuth = yield* call(getCurrentUser);
 		// if no user or user is null just return
 		if (!userAuth) return;
-		yield call(getSnapshotFromUserAuth, userAuth);
+		yield* call(getSnapshotFromUserAuth, userAuth);
 	} catch (error) {
-		yield put(signInFailure(error));
+		yield* put(signInFailure(error as Error));
 	}
 }
 
 export function* signInWithGoogle() {
 	try {
-		const { user } = yield call(signInWithGooglePopup);
-		yield call(getSnapshotFromUserAuth, user);
+		const { user } = yield* call(signInWithGooglePopup);
+		yield* call(getSnapshotFromUserAuth, user);
 	} catch (error) {
-		yield put(signInFailure(error));
-		alert(error.code);
+		yield* put(signInFailure(error as Error));
+		alert(error);
 	}
 }
-export function* signInWithEmailPassword({ payload }) {
+export function* signInWithEmailPassword({ payload }: EmailSignInStart) {
 	const { email, password } = payload;
 	try {
-		const { user } = yield call(loginWithEmailAndPassword, email, password);
-		yield call(getSnapshotFromUserAuth, user);
+		const userCredential = yield* call(
+			loginWithEmailAndPassword,
+			email,
+			password
+		);
+		if (userCredential) {
+			const { user } = userCredential;
+			yield call(getSnapshotFromUserAuth, user);
+		}
 	} catch (error) {
-		yield put(signInFailure(error));
-		alert(error.code);
+		yield put(signInFailure(error as Error));
+		alert(error);
 	}
 }
 
-export function* emailSignUp(action) {
-	const { email, password, displayName } = action.payload;
+export function* emailSignUp({ payload }: EmailSignUpStart) {
+	const { email, password, displayName } = payload;
 	try {
-		const { user } = yield call(
+		const userCredential = yield* call(
 			createAuthUserWithEmailAndPassword,
 			email,
 			password
 		);
-		user.displayName = displayName;
-		yield call(getSnapshotFromUserAuth, user);
+		if (userCredential) {
+			const { user } = userCredential;
+			yield* call(getSnapshotFromUserAuth, user);
+		}
 	} catch (error) {
-		yield put(signInFailure(error));
-		alert(error.code);
+		yield* put(signInFailure(error as Error));
+		alert(error);
 	}
 }
 
 export function* signOut() {
 	try {
-		yield call(signOutUser);
-		yield put(signOutSuccess());
+		yield* call(signOutUser);
+		yield* put(signOutSuccess());
 	} catch (error) {
-		yield put(signOutFailure(error));
+		yield* put(signOutFailure(error as Error));
 	}
 }
 

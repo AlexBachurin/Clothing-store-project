@@ -35,7 +35,9 @@ export const emailSignInStart = (
 	});
 };
 
-export const signInSuccess = (user: UserData): SignInSuccess => {
+export const signInSuccess = (
+	user: UserData & { id: string }
+): SignInSuccess => {
 	return createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
 };
 export const signInFailure = (error: Error): SignInFailure => {
