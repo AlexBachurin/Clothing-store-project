@@ -1,10 +1,17 @@
-import { compose, createStore, applyMiddleware } from "redux";
+import { compose, createStore, applyMiddleware, Middleware } from "redux";
 import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
-import { persistStore, persistReducer } from "redux-persist";
+import { persistStore, persistReducer, PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./root-saga";
+
+//interface for global window obj
+declare global {
+	interface Window {
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+	}
+}
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,7 +19,7 @@ const sagaMiddleware = createSagaMiddleware();
 const middleWares = [
 	process.env.NODE_ENV !== "production" && logger,
 	sagaMiddleware,
-].filter(Boolean);
+].filter((middleWare): middleWare is Middleware => Boolean(middleWare));
 
 //devtools
 const composeEhnancer =
@@ -23,11 +30,16 @@ const composeEhnancer =
 const composedEnhancers = composeEhnancer(applyMiddleware(...middleWares));
 
 //Persistor to save cart state after reload
-const persistConfig = {
+//type for persistConfig
+type ExtendedPersistConfig = PersistConfig<RootState> & {
+	whitelist: (keyof RootState)[];
+};
+
+const persistConfig: ExtendedPersistConfig = {
 	key: "root",
 	storage,
 	// blacklist user since we have onAuthStateChange listener and categories
-	blacklist: ["user"],
+	whitelist: ["cart"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 //pass middleWare as 3rd argument, so we pass second argument as undefined
@@ -41,3 +53,5 @@ export const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof rootReducer>;
