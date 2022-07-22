@@ -1,5 +1,4 @@
-import { AnyAction } from "redux";
-import { CartAction } from "./cartAction";
+import { CartAction } from "./ActionTypes";
 import { CartItem, CART_ACTION_TYPES } from "./cartTypes";
 
 export type CartState = {
