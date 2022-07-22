@@ -7,8 +7,11 @@ import {
 	emailSignInStart,
 	googleSignInStart,
 } from "../../store/user/userAction";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 const SignInForm = () => {
 	const dispatch = useDispatch();
+	// let navigate = useNavigate();
 	const [inputValues, setInputValues] = useState({
 		email: "",
 		password: "",
@@ -38,18 +41,19 @@ const SignInForm = () => {
 		//try to sign in user
 		try {
 			dispatch(emailSignInStart(inputValues.email, inputValues.password));
-
+			// navigate("/");
 			clearFormFields();
 		} catch (error) {
-			// if (error.code === "auth/wrong-password") {
-			// 	alert("Wrong password");
-			// }
-			// if (error.code === "auth/too-many-requests") {
-			// 	alert("too many requests, try again a bit later");
-			// }
-			// if (error.code === "auth/user-not-found") {
-			// 	alert("user not found");
-			// }
+			const errorType = error as AuthError;
+			if (errorType.code === AuthErrorCodes.INVALID_PASSWORD) {
+				alert("Wrong password");
+			}
+			if (errorType.code === AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER) {
+				alert("too many requests, try again a bit later");
+			}
+			if (errorType.code === AuthErrorCodes.INVALID_EMAIL) {
+				alert("user not found");
+			}
 			console.log(error);
 		}
 	};

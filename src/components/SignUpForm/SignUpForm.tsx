@@ -1,3 +1,4 @@
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { emailSignUpStart } from "../../store/user/userAction";
@@ -66,14 +67,14 @@ const SignUpForm = () => {
 			//clear form
 			clearFormFields();
 		} catch (error) {
-			// if (error.code === "auth/email-already-in-use") {
-			// 	alert("Cannot create user, email already in use");
-			// } else if (error.code === "auth/weak-password") {
-			// 	alert("Password should be at least 6 characters");
-			// } else {
-			// 	console.log(error.message);
-			// }
-			console.log(error);
+			const errorType = error as AuthError;
+			if (errorType.code === AuthErrorCodes.EMAIL_EXISTS) {
+				alert("Cannot create user, email already in use");
+			} else if (errorType.code === AuthErrorCodes.WEAK_PASSWORD) {
+				alert("Password should be at least 6 characters");
+			} else {
+				console.log(errorType.message);
+			}
 		}
 	};
 	return (

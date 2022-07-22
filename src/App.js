@@ -12,6 +12,7 @@ import {
 	getCurrentUser,
 	onAuthStateChangedListener,
 } from "./utils/firebase/firebase";
+import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserSession, setCurrentUser } from "./store/user/userAction";
@@ -48,7 +49,14 @@ function App() {
 			<Route path="/" element={<Navigation />}>
 				<Route index element={<HomePage />} />
 				<Route path="/shop/*" element={<ShopPage />} />
-				<Route path="/auth" element={<AuthenticationPage />} />
+				<Route
+					path="/auth"
+					element={
+						<ProtectedRoute>
+							<AuthenticationPage />
+						</ProtectedRoute>
+					}
+				></Route>
 				<Route path="/checkout" element={<CheckoutPage />} />
 			</Route>
 			<Route path="*" element={<ErrorPage />} />
