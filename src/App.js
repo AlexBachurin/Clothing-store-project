@@ -6,15 +6,12 @@ import HomePage from "./pages/Home/HomePage";
 import AuthenticationPage from "./pages/Authentication/AuthenticationPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 import ErrorPage from "./pages/Error/ErrorPage";
-import React, { useEffect } from "react";
-import {
-	createUserDocumentFromAuth,
-	getCurrentUser,
-	onAuthStateChangedListener,
-} from "./utils/firebase/firebase";
+import { useEffect } from "react";
+
+import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserSession, setCurrentUser } from "./store/user/userAction";
+import { checkUserSession } from "./store/user/userAction";
 import {
 	calculateTotalItems,
 	calculateTotalPrice,
@@ -48,7 +45,14 @@ function App() {
 			<Route path="/" element={<Navigation />}>
 				<Route index element={<HomePage />} />
 				<Route path="/shop/*" element={<ShopPage />} />
-				<Route path="/auth" element={<AuthenticationPage />} />
+				<Route
+					path="/auth"
+					element={
+						<ProtectedRoute>
+							<AuthenticationPage />
+						</ProtectedRoute>
+					}
+				></Route>
 				<Route path="/checkout" element={<CheckoutPage />} />
 			</Route>
 			<Route path="*" element={<ErrorPage />} />
