@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setIsCartOpen } from "../../store/cart/cartAction";
+import { RootState } from "../../store/store";
 import Button from "../Button/Button";
 import CartItem from "../CartItem/CartItem";
 import Wrapper from "./Wrapper";
 const CartDropdown = () => {
-	const { cartItems } = useSelector((store) => store.cart);
+	const { cartItems } = useSelector((store: RootState) => store.cart);
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
 

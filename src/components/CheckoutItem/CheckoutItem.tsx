@@ -1,9 +1,24 @@
-import React from "react";
+import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 
 import { deleteItemFromCart, toggleAmount } from "../../store/cart/cartAction";
 import Wrapper from "./Wrapper";
-const CheckoutItem = ({ id, name, amount, imageUrl, price }) => {
+
+type CheckoutItemProps = {
+	id: number;
+	name: string;
+	amount: number;
+	imageUrl: string;
+	price: number;
+};
+
+const CheckoutItem: FC<CheckoutItemProps> = ({
+	id,
+	name,
+	amount,
+	imageUrl,
+	price,
+}) => {
 	const dispatch = useDispatch();
 	const incrementAmount = () => {
 		dispatch(toggleAmount(id, "inc"));

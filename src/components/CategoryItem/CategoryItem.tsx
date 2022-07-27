@@ -1,7 +1,13 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import Wrapper from "./Wrapper";
 
-const CategoryItem = ({ title, imageUrl }) => {
+type CategoryItemProps = {
+	title: string;
+	imageUrl: string;
+};
+
+const CategoryItem: FC<CategoryItemProps> = ({ title, imageUrl }) => {
 	return (
 		<Wrapper imageUrl={imageUrl}>
 			<div className="background-image" />

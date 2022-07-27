@@ -5,9 +5,12 @@ import Wrapper from "./Wrapper";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PaymentForm from "../../components/PaymentForm/PaymentForm";
+import { RootState } from "../../store/store";
 const CheckoutPage = () => {
-	const { cartItems, cartTotal } = useSelector((store) => store.cart);
-	const { currentUser } = useSelector((store) => store.user);
+	const { cartItems, cartTotal } = useSelector(
+		(store: RootState) => store.cart
+	);
+	const { currentUser } = useSelector((store: RootState) => store.user);
 	return (
 		<Wrapper>
 			<div className="checkout-header">

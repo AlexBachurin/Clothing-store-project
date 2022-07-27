@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+type WrapperProps = {
+	imageUrl?: string;
+};
+
+const Wrapper = styled.div<WrapperProps>`
 	min-width: 30%;
 	height: 240px;
 	flex: 1 1 auto;
