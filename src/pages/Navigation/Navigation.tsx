@@ -5,11 +5,12 @@ import { ReactComponent as Logo } from "../../assets/nav-logo.svg";
 import CartDropdown from "../../components/CartDropdown/CartDropdown";
 import CartIcon from "../../components/CartIcon/CartIcon";
 import { openCart } from "../../store/cart/cartAction";
+import { RootState } from "../../store/store";
 import { signOutStart } from "../../store/user/userAction";
 import Wrapper from "./Wrapper";
 const Navigation = () => {
-	const { currentUser } = useSelector((store) => store.user);
-	const { isCartOpen } = useSelector((store) => store.cart);
+	const { currentUser } = useSelector((store: RootState) => store.user);
+	const { isCartOpen } = useSelector((store: RootState) => store.cart);
 	const dispatch = useDispatch();
 	const logoutUser = () => {
 		dispatch(signOutStart());

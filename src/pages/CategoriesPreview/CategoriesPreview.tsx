@@ -3,8 +3,11 @@ import CategoryPreview from "../../components/CategoryPreview/CategoryPreview";
 import Wrapper from "./Wrapper";
 import { useSelector } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
+import { RootState } from "../../store/store";
 const CategoriesPreview = () => {
-	const { categories, isLoading } = useSelector((store) => store.categories);
+	const { categories, isLoading } = useSelector(
+		(store: RootState) => store.categories
+	);
 	return (
 		<Wrapper>
 			{
