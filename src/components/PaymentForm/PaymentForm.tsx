@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import Button from "../Button/Button";
 import Wrapper from "./Wrapper";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const PaymentForm = () => {
 	const stripe = useStripe();
 	const elements = useElements();
 
-	const { cartTotal } = useSelector((store) => store.cart);
-	const { currentUser } = useSelector((store) => store.user);
+	const { cartTotal } = useSelector((store: RootState) => store.cart);
+	const { currentUser } = useSelector((store: RootState) => store.user);
 
 	//processing payment
 	const [processing, setProcessing] = useState(false);
 
-	const paymentHandler = async (e) => {
+	const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		//make sure two hooks loaded when payment fires
 		if (!stripe || !elements) {
@@ -33,11 +34,14 @@ const PaymentForm = () => {
 		}).then((data) => data.json());
 		//get client secret
 		const clientSecret = res.paymentIntent.client_secret;
+		//typing for card details, since we cant pass null
+		const cardDetails = elements.getElement(CardElement);
+		if (cardDetails === null) return;
 		// payment result
 		const paymentResult = await stripe.confirmCardPayment(clientSecret, {
 			payment_method: {
 				// card info
-				card: elements.getElement(CardElement),
+				card: cardDetails,
 				//details
 				billing_details: {
 					name: currentUser ? currentUser.displayName : "Guest",
