@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 
 import Wrapper from "./Wrapper";
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PaymentForm from "../../components/PaymentForm/PaymentForm";
 import { RootState } from "../../store/store";
-const CheckoutPage = () => {
+const CheckoutPage = memo(() => {
 	const { cartItems, cartTotal } = useSelector(
 		(store: RootState) => store.cart
 	);
@@ -49,6 +49,6 @@ const CheckoutPage = () => {
 			{cartItems.length > 0 && currentUser ? <PaymentForm /> : null}
 		</Wrapper>
 	);
-};
+});
 
 export default CheckoutPage;
