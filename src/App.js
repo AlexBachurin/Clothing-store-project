@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
@@ -9,6 +8,7 @@ import {
 	calculateTotalPrice,
 } from "./store/cart/cartAction";
 import Spinner from "./components/Spinner/Spinner";
+import { GlobalStyle } from "./global.styles";
 
 const HomePage = lazy(() => import("./pages/Home/HomePage"));
 const AuthenticationPage = lazy(() =>
@@ -44,6 +44,7 @@ function App() {
 	}, [cartItems, dispatch]);
 	return (
 		<Suspense fallback={<Spinner />}>
+			<GlobalStyle />
 			<Routes>
 				<Route path="/" element={<Navigation />}>
 					<Route index element={<HomePage />} />
