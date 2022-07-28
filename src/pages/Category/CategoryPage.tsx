@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
 import { useParams } from "react-router-dom";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -26,7 +26,6 @@ const CategoryPage = () => {
 	useEffect(() => {
 		//set products array to appropriate category array name
 		setProducts(categories[categoryName]);
-		console.log(products);
 	}, [categoryName, categories]);
 	return (
 		<Wrapper>

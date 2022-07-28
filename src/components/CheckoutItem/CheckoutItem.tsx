@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { useDispatch } from "react-redux";
 
 import { deleteItemFromCart, toggleAmount } from "../../store/cart/cartAction";
@@ -12,44 +12,40 @@ type CheckoutItemProps = {
 	price: number;
 };
 
-const CheckoutItem: FC<CheckoutItemProps> = ({
-	id,
-	name,
-	amount,
-	imageUrl,
-	price,
-}) => {
-	const dispatch = useDispatch();
-	const incrementAmount = () => {
-		dispatch(toggleAmount(id, "inc"));
-	};
-	const decrementAmount = () => {
-		dispatch(toggleAmount(id, "dec"));
-	};
-	const removeHandler = () => {
-		dispatch(deleteItemFromCart(id));
-	};
-	return (
-		<Wrapper>
-			<div className="image-container">
-				<img src={imageUrl} alt={name} />
-			</div>
-			<span className="name">{name}</span>
-			<span className="amount">
-				<div onClick={decrementAmount} className="arrow">
-					&#10094;
+const CheckoutItem: FC<CheckoutItemProps> = memo(
+	({ id, name, amount, imageUrl, price }) => {
+		const dispatch = useDispatch();
+		const incrementAmount = () => {
+			dispatch(toggleAmount(id, "inc"));
+		};
+		const decrementAmount = () => {
+			dispatch(toggleAmount(id, "dec"));
+		};
+		const removeHandler = () => {
+			dispatch(deleteItemFromCart(id));
+		};
+		return (
+			<Wrapper>
+				<div className="image-container">
+					<img src={imageUrl} alt={name} />
 				</div>
-				<span className="amount-value">{amount}</span>
-				<div onClick={incrementAmount} className="arrow">
-					&#10095;
+				<span className="name">{name}</span>
+				<span className="amount">
+					<div onClick={decrementAmount} className="arrow">
+						&#10094;
+					</div>
+					<span className="amount-value">{amount}</span>
+					<div onClick={incrementAmount} className="arrow">
+						&#10095;
+					</div>
+				</span>
+				<span className="price">{price}$</span>
+				<div onClick={removeHandler} className="remove-button">
+					&#10005;
 				</div>
-			</span>
-			<span className="price">{price}$</span>
-			<div onClick={removeHandler} className="remove-button">
-				&#10005;
-			</div>
-		</Wrapper>
-	);
-};
+			</Wrapper>
+		);
+	}
+);
 
 export default CheckoutItem;

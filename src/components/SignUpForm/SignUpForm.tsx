@@ -1,6 +1,6 @@
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { emailSignUpStart } from "../../store/user/userAction";
 
 import Button from "../Button/Button";
