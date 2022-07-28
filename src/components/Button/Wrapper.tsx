@@ -45,6 +45,11 @@ const Wrapper = styled.button`
 			border: none;
 		}
 	}
+	@media screen and (max-width: 800px) {
+		letter-spacing: 0;
+		line-height: 20px;
+		padding: 10px 10px;
+	}
 `;
 
 export default Wrapper;

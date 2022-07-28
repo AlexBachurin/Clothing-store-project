@@ -73,6 +73,11 @@ const Wrapper = styled.div<WrapperProps>`
 			font-size: 16px;
 		}
 	}
+	@media screen and (max-width: 800px) {
+		.category-body-container {
+			padding: 0 5px;
+		}
+	}
 `;
 
 export default Wrapper;

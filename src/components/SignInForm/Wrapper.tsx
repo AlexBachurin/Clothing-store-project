@@ -13,6 +13,13 @@ const Wrapper = styled.div`
 		align-items: center;
 		gap: 10px;
 	}
+	@media screen and (max-width: 800px) {
+		.btn-container {
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+	}
 `;
 
 export default Wrapper;

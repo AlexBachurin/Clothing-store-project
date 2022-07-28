@@ -31,6 +31,20 @@ const Wrapper = styled.div`
 			}
 		}
 	}
+	@media screen and (max-width: 800px) {
+		.navigation {
+			height: 40px;
+			.logo-container {
+				padding: 0;
+			}
+			.nav-links-container {
+				width: 70%;
+				.nav-link {
+					padding: 10px 5px;
+				}
+			}
+		}
+	}
 `;
 
 export default Wrapper;

@@ -17,6 +17,11 @@ const Wrapper = styled.div`
 		column-gap: 20px;
 		row-gap: 50px;
 	}
+	@media screen and (max-width: 800px) {
+		.products {
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		}
+	}
 `;
 
 export default Wrapper;

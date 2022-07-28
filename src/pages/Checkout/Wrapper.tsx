@@ -45,6 +45,27 @@ const Wrapper = styled.div`
 		margin-left: auto;
 		font-size: 36px;
 	}
+	@media screen and (max-width: 800px) {
+		width: 85vw;
+		margin: 0 auto;
+		.checkout-header {
+			display: none;
+		}
+		.name {
+			font-size: 16px;
+		}
+		.price {
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.remove-button {
+			color: red;
+		}
+		.total {
+			font-size: 32px;
+		}
+	}
 `;
 
 export default Wrapper;

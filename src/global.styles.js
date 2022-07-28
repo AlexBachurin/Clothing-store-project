@@ -6,8 +6,10 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Open Sans", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        padding-bottom: 40px;
         @media screen and (max-width: 800px) {
             padding: 10px;
+            padding-bottom: 40px;
         }
     }
 

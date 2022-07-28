@@ -48,6 +48,10 @@ const Wrapper = styled.div`
 	button {
 		margin-top: auto;
 	}
+	@media screen and (max-width: 800px) {
+		top: 55px;
+		right: 30px;
+	}
 `;
 
 export default Wrapper;

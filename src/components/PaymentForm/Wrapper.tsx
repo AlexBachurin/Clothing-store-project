@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 	justify-content: center;
 	.payment-form {
 		min-height: 300px;
-		min-width: 500px;
+		/* min-width: 500px; */
 		/* display: flex;
 		flex-direction: column;
 		align-items: center; */
@@ -24,6 +24,13 @@ const Wrapper = styled.div`
 	.payment-btn {
 		margin: 0 auto;
 		margin-top: 40px;
+	}
+	@media screen and (max-width: 800px) {
+		width: 90vw;
+		margin: 0 auto;
+		.payment-form {
+			width: 100%;
+		}
 	}
 `;
 

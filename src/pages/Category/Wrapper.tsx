@@ -14,6 +14,11 @@ const Wrapper = styled.div`
 		text-transform: uppercase;
 		font-size: 30px;
 	}
+	@media screen and (max-width: 800px) {
+		.category-items-container {
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		}
+	}
 `;
 
 export default Wrapper;
