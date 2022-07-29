@@ -66,6 +66,12 @@ const Wrapper = styled.div`
 			font-size: 32px;
 		}
 	}
+	@media screen and (max-width: 1200px) {
+		width: 80%;
+		.checkout-header {
+			font-size: 16px;
+		}
+	}
 `;
 
 export default Wrapper;

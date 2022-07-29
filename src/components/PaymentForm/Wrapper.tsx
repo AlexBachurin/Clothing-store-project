@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 		margin-top: 40px;
 	}
 	@media screen and (max-width: 800px) {
-		width: 90vw;
+		width: 100%;
 		margin: 0 auto;
 		.payment-form {
 			width: 100%;

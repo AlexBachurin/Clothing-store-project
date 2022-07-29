@@ -45,7 +45,7 @@ const Wrapper = styled.button`
 			border: none;
 		}
 	}
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 1200px) {
 		letter-spacing: 0;
 		line-height: 20px;
 		padding: 10px 10px;
